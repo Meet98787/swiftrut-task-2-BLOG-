@@ -7,19 +7,9 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-// app.use(cors());
-const cors = require('cors');
+app.use(cors());
 
-// Allow requests from your frontend domain
-const corsOptions = {
-  origin: 'swiftrut-task-2-blog-frontend.vercel.app', // Your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-
+app.use(express.json());
 // Routes
 app.use('/api', postRoutes);
 

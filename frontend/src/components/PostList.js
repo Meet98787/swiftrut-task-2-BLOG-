@@ -1,37 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts, deletePost } from '../api';
+import { Container, Card, CardContent, Typography, Button, Grid, Box } from '@mui/material';
+import { PostContext } from '../context/PostContext';
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    const response = await getPosts();
-    setPosts(response.data);
-  };
-
-  const handleDelete = async (id) => {
-    await deletePost(id);
-    fetchPosts(); // Refresh posts after deletion
-  };
+  const { posts, removePost } = useContext(PostContext);  // Use posts and removePost from context
 
   return (
-    <div>
-      <h2>All Blog Posts</h2>
-      <ul>
-        {posts.map((post) => (
-          <li key={post._id}>
-            <Link to={`/post/${post._id}`}>{post.title}</Link>
-            <button onClick={() => handleDelete(post._id)}>Delete</button>
-            <Link to={`/edit/${post._id}`}>Edit</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container maxWidth="md">
+      <Box mt={4}>
+        <Typography variant="h4" gutterBottom>All Blog Posts</Typography>
+        <Grid container spacing={3}>
+          {posts.map((post) => (
+            <Grid item xs={12} sm={6} key={post._id}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>{post.title}</Typography>
+                  <Typography variant="body2">{post.content.substring(0, 100)}...</Typography>
+                  <Box mt={2}>
+                    <Button component={Link} to={`/post/${post._id}`} variant="contained" color="primary" size="small">
+                      View
+                    </Button>
+                    <Button component={Link} to={`/edit/${post._id}`} variant="contained" size="small" sx={{ ml: 2 }}>
+                      Edit
+                    </Button>
+                    <Button onClick={() => removePost(post._id)} variant="contained" color="secondary" size="small" sx={{ ml: 2 }}>
+                      Delete
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 
