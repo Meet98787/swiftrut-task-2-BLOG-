@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 // app.use(cors());
 app.use(cors(
-origin: ("https://deploy-mern-frontend.vercel.app/"),
+origin: ("swiftrut-task-2-blog-frontend.vercel.app"),
 methods: ["POST", "
 GET"],
 credentials: true
