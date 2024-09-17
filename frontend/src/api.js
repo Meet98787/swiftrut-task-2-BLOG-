@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://swiftrut-task-2-blog.vercel.app/api/'; // Change this to your backend URL
+const API_URL = 'https://swiftrut-task-2-blog.vercel.app/api'; // Change this to your backend URL
 
 export const getPosts = () => axios.get(`${API_URL}/posts`);
 export const getPostById = (id) => axios.get(`${API_URL}/posts/${id}`);
