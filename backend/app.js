@@ -8,12 +8,17 @@ const app = express();
 
 // Middleware
 // app.use(cors());
-app.use(cors(
-origin: ("swiftrut-task-2-blog-frontend.vercel.app"),
-methods: ["POST", "
-GET"],
-credentials: true
-app.use(express.json());
+const cors = require('cors');
+
+// Allow requests from your frontend domain
+const corsOptions = {
+  origin: 'swiftrut-task-2-blog-frontend.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 // Routes
 app.use('/api', postRoutes);
